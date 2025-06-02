@@ -96,7 +96,7 @@ class glTF2ExportUserExtension:
             gltf2_scene.extensions = {}
         gltf2_scene.extensions[self.properties.extension_name] = self.Extension(
             name=self.properties.extension_name,
-            extension={'markers': extMarkers},
+            extension={'markers': extMarkers,'fps': fps},
             required=extension_is_required
         )
 

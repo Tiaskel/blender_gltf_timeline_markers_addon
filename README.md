@@ -29,9 +29,11 @@ class GLTFTimelineMarkersExtension implements GLTFLoaderPlugin {
     }
     async afterRoot(result: GLTF) {
         const markers: any[] = []
+        let fps = 30
         for (const jScene of this.parser.json.scenes) {
             if (!jScene.extensions) continue
             const params = jScene.extensions[this.name]
+            fps = params?.fps ?? 30
             for (const marker of params?.markers || []) {
                 const camera = marker.camera !== undefined ? await this.parser.getDependency('camera', marker.camera) : undefined
                 markers.push({
@@ -47,7 +49,6 @@ class GLTFTimelineMarkersExtension implements GLTFLoaderPlugin {
         if (!scene) return
         scene.userData.markers = markers
 
-        const fps = 30
         const times = markers.map(m=>m.frame / fps)
         let i = 0
         const values = markers.map(m=>i++)
