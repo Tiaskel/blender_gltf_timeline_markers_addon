@@ -44,6 +44,7 @@ class GLTFTimelineMarkersExtension implements GLTFLoaderPlugin {
             }
         }
         if (markers.length < 1) return
+        markers.sort((a, b) => a.frame - b.frame)
 
         const scene = result.scene ?? result.scenes[0]
         if (!scene) return
